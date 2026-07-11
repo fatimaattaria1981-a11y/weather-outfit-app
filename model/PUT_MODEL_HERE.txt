@@ -1,0 +1,2 @@
+If you downloaded weather_outfit_classifier.joblib from Colab, place it in this folder.
+Otherwise run train_model.py using the included CSV dataset.

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>WeatherWear AI Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='chat.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="rain" id="rain" aria-hidden="true"></div>
+  <div class="floating-weather" aria-hidden="true"><span>☀️</span><span>☁️</span><span>🌧️</span><span>🍃</span><span>❄️</span><span>🧥</span></div>
+  <header><div class="brand"><span>☁</span> WeatherWear AI Lab</div><div class="badge" id="status">Checking model…</div></header>
+  <main>
+    <section class="hero"><p class="eyebrow">✨ YOUR AI OUTFIT ASSISTANT</p><h1>Weather-ready style, <em>instantly.</em></h1><p>Tell us the temperature and your plans. Get a complete outfit suggestion in one click.</p></section>
+    <section class="grid">
+      <div class="card input-card simple-card"><div class="card-title"><span>01</span><div><h2>🌤️ Tell us about your day</h2><p>Four simple choices. No technical weather details.</p></div></div>
+        <form id="predictForm">
+          <div class="form-grid">
+            <label>Temperature °C<input name="Temperature_C" type="number" value="24" step="0.1" required></label>
+            <label>Condition<select name="Weather_Condition"><option>Sunny</option><option>Cloudy</option><option>Partly Cloudy</option><option>Rainy</option><option>Snowy</option><option>Stormy</option><option>Foggy</option><option>Windy</option></select></label>
+            <label>Season<select name="Season"><option>Spring</option><option>Summer</option><option>Autumn</option><option>Winter</option></select></label>
+            <label>Occasion<select name="Occasion"><option>Casual</option><option>College</option><option>Office</option><option>Outdoor</option><option>Travel</option></select></label>
+          </div><button type="submit">✨ Ask the model <span>→</span></button>
+        </form>
+      </div>
+      <div class="right-column">
+        <div class="card result-card"><div class="card-title"><span>02</span><div><h2>👗 Your outfit</h2><p>A direct, ready-to-wear suggestion.</p></div></div>
+          <div id="emptyResult" class="empty"><div>✦</div><p>Choose a scenario and ask the model.</p></div>
+          <div id="result" hidden><div class="prediction outfit-result"><div id="outfitIcon" class="outfit-icon">👕</div><small>YOUR WEATHER-READY LOOK</small><h3 id="outfitTitle">—</h3><p id="outfitNote"></p><ul id="outfitItems"></ul><div class="model-detail"><span id="predictionText">—</span> · <strong id="confidenceText">—</strong> confidence</div></div><details><summary>See how the model decided 📊</summary><canvas id="probabilityChart"></canvas></details></div>
+        </div>
+        <div class="card explain-card"><div class="card-title"><span>03</span><div><h2>💡 What is the model saying?</h2><p>A student-friendly reading of the result.</p></div></div><ol id="explanation"><li>Run a prediction to reveal the explanation.</li></ol></div>
+      </div>
+    </section>
+    <section class="card batch"><div><p class="eyebrow">📊 BATCH LAB</p><h2>Predict a complete CSV</h2><p>Upload rows with the same input columns and receive a file with prediction and confidence fields.</p></div><form id="batchForm"><input id="csvFile" type="file" accept=".csv" required><button>⬇ Download predictions</button></form></section>
+  </main>
+  <button class="chat-toggle" id="chatToggle" aria-label="Open teaching assistant">💬<span>Ask AI Guide</span></button>
+  <aside class="chat-panel" id="chatPanel"><div class="chat-head"><div><strong>🤖 WeatherWear Guide</strong><small>Workshop teaching assistant</small></div><button id="chatClose" aria-label="Close">×</button></div><div class="chat-messages" id="chatMessages"><div class="message bot">Hi! 👋 Ask me what classification, confidence, features, or this prediction means.</div></div><div class="quick-prompts"><button data-question="What is classification?">Classification</button><button data-question="What does confidence mean?">Confidence</button><button data-question="Explain the prediction">Explain result</button></div><form class="chat-form" id="chatForm"><input id="chatInput" placeholder="Ask about the model…" autocomplete="off" required><button>➤</button></form></aside>
+  <footer>Built for teaching classification • Predictions reflect learned patterns, not guaranteed real-world advice.</footer>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body></html>
